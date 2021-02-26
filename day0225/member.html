@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입</title>
+<style>
+    /* 이 영역은 스타일 시트의 영역이다. 즉 html 태그 영역이 아님.
+    따라서 스타일 시트 문법만 작성할 수 있다.
+    스타일 태그를 이용하면, 문서 내에 스타일 시트를 적용 할 대상에 대해
+    일괄적으로 지정 및 적용할 수 있다.
+    스타일 시트의 문법 구조 :
+    누구를{어떻게}
+    누구를 지칭할 떄 사용하는 css의 요소를 가리켜 선택자(selector)라 한다. */
+
+    td{
+        font-size:9px;color:red;
+     
+    }
+    select{
+        font-size:9px;color:rgb(10, 10, 10);background-color: bisque;
+    }
+    input{
+        background-color: bisque; 
+        border:1px solid green;
+    }
+    /*일괄 적용 + 원하는 곳에만 적용시킬 수 있는 나만의 스타일
+    이러한 스타일 시트 블럭을 클래스라 칭한다.*/
+    .title_style{
+        text-align: center;
+    }
+    textarea{
+        background-color: hotpink;
+        background-image: url(https://w7.pngwing.com/pngs/158/522/png-transparent-uncle-sam-youtube-english-poster-united-kingdom-youtube-english-poster-united-kingdom.png);
+        background-repeat: no-repeat;
+        background-size: 600px 300px;
+        width:600px;height: 300px;
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
+</head>
+<body>
+    <table border="1px" align="center" width = "700">
+        <tr>
+            <td colspan="2" align="center" style="font-size:20px;color:blueviolet;
+            background-color: burlywood;font-weight:bold;">회원가입</td>
+            
+        </tr>
+        <tr>
+            <td class="title_style">ID</td>
+            <td><input type = "text" placeholder="Your ID"></td>   
+        </tr>
+        <tr>
+            <td class="title_style">PASSWORD</td>
+            <td><input type = "password" placeholder="Your PASSWORD"></td>   
+        </tr>
+        <tr>
+            <td class="title_style">Name</td>
+            <td><input type = "text" placeholder="Your Name"></td>   
+        </tr>
+        <tr>
+            <td class="title_style">Phone</td>
+            <td>
+                <input type = "text" placeholder="국번"> -
+                <input type = "text" placeholder="앞자리"> -
+                <input type = "text" placeholder="뒷자리">
+            </td>   
+        </tr>
+        <tr>
+            <td class="title_style">E-mail</td>
+            <td><input type = "text" placeholder="Mail ID">@
+            <select>
+                <option value="">gmail.com</option>
+                <option value="">naver.com</option>
+                <option value="">nate.com</option>
+                <option value="">daum.net</option>
+                <option value="">직접 입력</option>
+            </select>
+        </td>   
+        </tr>
+        <tr>
+            <td class="title_style">skill</td>
+            <td>
+                <input type="checkbox"> node.js
+                <input type="checkbox"> oracle
+                <input type="checkbox"> mysql
+                <input type="checkbox"> javascript
+                <input type="checkbox"> css
+                <input type="checkbox"> react
+            </td>
+        </tr>
+        <tr>
+            <td class="title_style">email receive</td>
+            <td>
+                <input type = "radio" name = "mail">Yes
+                <input type = "radio" name = "mail">No
+            </td>
+        </tr>
+        <tr>
+            <td class="title_style">introduction</td>
+            <td>
+                <textarea></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button>가입</button>
+                <button>취소</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <hr>
+    <!-- 목록의 표현 
+    순서 있는 목록 : ordered list (ol)
+    순서 없는 목록 : unordered list (ul)
+    -->
+    <ol>
+        <li>파인애플</li>
+        <li>오렌지</li>
+        <li>사과</li>
+        <li>포도</li>
+    </ol>
+    <ul>
+        <li>파인애플</li>
+        <li>오렌지</li>
+        <li>사과</li>
+        <li>포도</li>
+    </ul>
+
+    <!--h태그는 1~6까지 지원됨.
+    태그를 보여지는 대로 쓰면 스크린 리더기 등에 의한
+    해석에서 문제가 생김. 따라서 디자인 결과로 판단하지 말아야 한다.
+    각 태그가 가진 고유의 의미를 이용해야 함.(시멘틱 = sementic)
+-->
+    <h1>더미 텍스트</h1>
+    <h2>더미 텍스트</h2>
+    <h3>더미 텍스트</h3>
+    <h4>더미 텍스트</h4>
+    <h5>더미 텍스트</h5>
+    <h6>더미 텍스트</h6>
+
+
+    
+    <p>
+        <span style="font-size: 45px;">Lorem </span> <b>ipsum </b>dolor sit amet, consectetuer adipiscing elit. 
+    </p>
+    <p>
+        Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+        <p>
+    
+Donec quam felis, ultricies nec, <img src = "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-128.png">
+pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero. Cras id dui. Aenean ut
+</p>
+</body>
+</html>

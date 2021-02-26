@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복합 구조의 레이아웃</title>
+</head>
+<style>
+    body{
+        
+    }
+    #wrapper{
+        height: 650px; width: 700px;
+        /* margin-left : 300px; */
+        /* 좌, 우측의 남는 여백 공간을 2분하여 동일하게 마진을 적용 */
+        margin: auto;
+    }
+    #background1{
+        height: 550px; width: 700px;
+    }
+    #navi{
+        background-color: yellow; height: 100px; width: 700px;
+    }
+    #side{
+        background-color: green; height: 550px; width: 100px;
+        float : left; /*물체를 공중으로 부양*/
+        
+    }
+    #content{
+        background-color: blue; height: 550px; width: 600px; 
+        float:left;
+    }
+
+</style>
+
+<body>
+    <div id = wrapper>
+        <div id = navi>노란박스</div>
+        <div id = side>사이드</div>   
+        <div id = content>컨텐츠 영역</div>
+    </div>
+</body>
+</html>
