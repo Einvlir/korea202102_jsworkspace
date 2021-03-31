@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #ball{
+            position: absolute;
+            left 200px;
+            top 150px;
+            animation-name: ball-rotate;
+            animation-duration: 0.7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        /*애니메이션 정의*/
+        @keyframes ball-rotate{
+            from{transform: rotate(0deg);}
+            to{transform: rotate(360deg);}
+        }
+
+    </style>
+</body>
+    <img id = "ball" src="../images/ball.png" alt="공이다.">
+<div></div>
+</html>

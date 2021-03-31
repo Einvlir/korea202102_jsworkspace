@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#pika{
+    width: 80px;
+}
+body{
+    margin: 0px;
+}
+.wrapper{
+    width: 100%;
+    height: 700px;
+    border: 1px solid red;
+    position: relative;
+}
+</style>
+<script>
+    var pika;
+    var targetX = 0;
+    var targetY = 0;
+    var a = 0.1;
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move();",10);
+    });
+
+    function init(){
+        pika = document.getElementById("pika");
+        pika.style.position = "absolute";
+        pika.style.left = 50 + "px";
+        pika.style.top = 50 + "px";
+    }
+    function getpos(){
+        targetX = event.clientX;
+        targetY = event.clientY;
+        
+        // console.log("x=",x, "y=",y);
+    }
+    function move(){
+        pika.style.left = parseFloat(pika.style.left) + a *((targetX - 40)-parseFloat(pika.style.left)) + "px";
+        pika.style.top = parseFloat(pika.style.top) + a *((targetY - 40)-parseFloat(pika.style.top)) + "px";
+    }
+    
+</script>
+<body onmousemove="getpos()">
+    <div class = "wrapper">
+        <img src="../images/pika.png" id = "pika">
+    </div>
+</body>
+</html>

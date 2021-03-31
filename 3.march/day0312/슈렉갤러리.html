@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var targetX = -3000;
+var container;
+var a = 0.1;
+function init(){
+    container = document.getElementById("container");
+    container.style.position = " absolute";
+    container.style.top = 0 + "px";
+    container.style.left = 0 +"px";
+    setInterval("move()",10);
+    // move(0);
+}
+function move(){
+    // targetX = x;
+    // container.style.left = targetX + "px" //순간이동
+    container.style.left = parseFloat(container.style.left) + a * (targetX - parseFloat(container.style.left)) + "px";
+    
+    
+}
+function setTarget(x){
+    targetX = x;
+};
+window.addEventListener("load", function(){
+    init();
+});
+</script>
+<style>
+    .wrapper{
+        width: 500px;
+        height: 400px;
+        background: yellow;
+        margin: auto;
+        position: relative;
+    }
+    #photo-frame{
+        width: 500px;
+        height: 340px;
+        background-color: tomato;
+        overflow: hidden;
+        position: relative;
+    }
+    #container{
+        width: 3500px;
+        height: 340px;
+        /* position: absolute; */
+    }
+    #navi{
+        text-align: center;
+        font-size: 30px;
+    
+    }
+    #navi a{
+        /* cursor: pointer; */
+        text-decoration: none;
+    }
+    #navi a:hover{
+        color: plum;
+    }
+    #navi a:active{
+        color: cyan;
+    }
+    #navi a:visited{
+        color: rosybrown;
+    }
+    #container img{
+        float: left;
+    }
+</style>
+<body>
+    <div class = "wrapper">
+        <div id = photo-frame>
+            <!--길다란 사진을 모아놓은 컨테이너-->
+            <div id = "container">
+                <img src="../images/shurek/img0.jpg">
+                <img src="../images/shurek/img1.jpg">
+                <img src="../images/shurek/img2.jpg">
+                <img src="../images/shurek/img3.jpg">
+                <img src="../images/shurek/img4.jpg">
+                <img src="../images/shurek/img5.jpg">
+                <img src="../images/shurek/img6.jpg">
+            </div>
+        </div>
+        <div id = "navi">
+            <!--html문서에 자바스크립트를 작성할 수 있는 영역은?
+            1) script 태그 안에
+            2) 이벤트 핸들러 안에
+            3) a href 안에도 가능(javascript: 명시)-->
+            <a href="javascript: setTarget(0)">●</a>
+            <a href="javascript:setTarget(-500)">●</a>
+            <a href="javascript:setTarget(-1000)">●</a>
+            <a href="javascript:setTarget(-1500)">●</a>
+            <a href="javascript:setTarget(-2000)">●</a>
+            <a href="javascript:setTarget(-2500)">●</a>
+            <a href="javascript:setTarget(-3000)">●</a>
+        </div>
+    </div>
+</body>
+</html>

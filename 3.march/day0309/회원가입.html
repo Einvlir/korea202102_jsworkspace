@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.wrapper{
+    width: 600px;
+    margin: auto;
+}
+</style>
+<script>
+window.addEventListener("load", function(){
+    var bt = document.querySelector("button");
+    bt.style.background = "blue";
+    bt.addEventListener("click", function(){
+        send();
+    })
+});
+//웹 서버에 양식의 내용을 네트웍을 통해 전송한다.
+//이 때 전송대상이 되는 컴포넌트(input, select 등)들을 전송양식으로
+//묶어야 하는데, 이 때 사용되는 태그가 바로 form 태그이다.
+function send(){
+    //유효성 체크
+    var user_id = document.getElementById("user-id");
+    console.log("당신이 입력한 아이디는", user_id.value);
+    if(user_id.value == ""){
+        alert("tlqkffusdk.");
+        //커서 올리기
+        user_id.focus();
+    }else if(pass.value== ""){
+        alert("tlqkffusdk!!");
+    }else if(pass.value != PSconfirm.value){
+        alert("tlqkffusdk!!!!!");
+    }else if(document.getElementsByName("agree")[0].checked==false){
+        alert("tlqkffusdk!!!!!!!!!!!!!!!!!");
+    }else{
+        var form1 = document.getElementById("form1");
+        form1.action="http://daum.net";//전송 대상 url
+        form1.submit();//전송됨
+    }
+
+    //입력 양식인 form 태그는 전송 대상 서버에 어떤 방식으로 전송할 지 등을
+    //지정할 수 있다.
+}
+</script>
+</head>
+<body>
+    <div class = "wrapper">
+        <form id="form1">
+            <table width = "100%" border="1px">
+                <tr>
+                    <td><input type="text" placeholder="Your ID..." id = "user-id"></td>
+                </tr>
+                <tr>
+                    <td><input type="password" placeholder="Your Password..." id = "pass"></td>
+                </tr>
+                <tr>
+                    <td><input type="password" placeholder="Confirm Password" id = "PSconfirm"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="" id="">
+                            <option value="">010</option>
+                            <option value="">011</option>
+                            <option value="">017</option>
+                            <option value="">019</option>
+                        </select>-
+                        <input type="text" placeholder="앞자리">-
+                        <input type="text" placeholder="뒷자리">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="agree" id="" value = "yes">동의
+                        <input type="radio" name="agree" id="" value = "no" checked>동의 안 함
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button">회원가입</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

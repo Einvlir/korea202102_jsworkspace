@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    width: 1000px;
+    height: 340px;
+    position: relative;
+    background: yellow;
+    margin: auto;
+    object-fit: cover;
+    text-align: center;
+}
+</style>
+<script>
+var targetY = [];
+var a = 0.1;
+var cardArray = [];
+var wrapper;
+var img;
+var imgArr = ["aa.jpg","ab.jpg","ax.jpg"];
+var textArr = ["가고싶다","아름다운","그곳"]
+function init(){
+    wrapper = document.getElementById("wrapper")
+    for(i = 0; i < imgArr.length; i ++){
+        cardArray[i] = createCard(imgArr[i], textArr[i],i);
+        wrapper.appendChild(cardArray[i])
+        targetY[i] = 270;
+    }
+}
+function createCard(src, b, index){
+    var card = document.createElement("div");
+    card.style.width = 300 + "px";
+    card.style.height = 320 + "px";
+    card.style.backgroundImage = "url(../images/travel2/" + src + ")";
+    card.style.backgroundSize = "cover";
+    card.style.float = "left";
+    card.style.overflow = "hidden";
+    card.style.position = "relative";
+    card.style.margin = 5+"px";
+    card.style.boxSizing = "border-box";
+    
+
+
+    var textBox=[];
+    textBox = document.createElement("div");
+    textBox.style.width = 300 + "px";
+    textBox.style.height = 320 + "px";
+    textBox.style.backgroundColor = "rgb(85, 65, 107)";
+    textBox.style.opacity = 0.8;
+    textBox.style.position = "absolute";
+    textBox.style.top = 270 + "px";
+//수정해야된다..!
+    textBox.innerText = b;
+
+    textBox.style.color = "white";
+    textBox.style.fontSize = 25 + "px";
+    textBox.style.textAlign = "center";
+    textBox.style.boxSizing = "border-box"
+    textBox.style.paddingTop = 10 + "px";
+
+    textBox.addEventListener("mouseover",function(){
+        targetY[index] = 0;
+        // console.log(index);
+    });
+    textBox.addEventListener("mouseout",function(){
+        targetY[index]= 270;
+    });
+
+    card.appendChild(textBox);
+
+    return card;
+}
+
+function slideUpDown(){
+    for(i = 0 ; i < 3 ; i ++){
+        var textBox = [];
+        textBox[i] = cardArray[i].children[0];
+        // console.log("움직일대상 div는 ", textBox);
+        textBox[i].style.top = parseFloat(textBox[i].style.top) + a * (targetY[i] - parseFloat(textBox[i].style.top)) + "px";
+    }
+}
+window.addEventListener('load',function(){
+    init();
+    setInterval("slideUpDown()",10);
+})
+</script>
+<body>
+    <div id = "wrapper"></div>
+</body>
+</html>

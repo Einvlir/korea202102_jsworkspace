@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var container;
+var n = 9;
+// var BlockLeft = 500;
+// var BlockTop = 550;
+var BlockSize = 50;
+var map = [
+    [0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],
+    [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+];
+function init(){
+    container = document.getElementById("container")
+    createBlock();
+}
+function createBlock(){
+    for(i = 0; i < map.length ; i ++){
+        for(a = 0 ; a < map[i].length; a ++){
+            if(map[i][a] == 1){
+                container.appendChild(getItem("block.png",a ,i));
+            }else if(map[i][a] ==2 ){
+                container.appendChild(getItem("ball.png",a, i));
+            }
+        }
+    }
+}
+function getItem(path, a, i){
+    var img = document.createElement("img");
+    img.src = "../images/"+path;
+    img.style.width = BlockSize + "px";
+    img.style.height = BlockSize + "px";
+    img.style.position = "absolute";
+    img.style.top = (i * BlockSize) + "px";
+    img.style.left = (a * BlockSize) + "px";
+    return img;
+}
+                
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+<style>
+#container{
+    width: 1000px;
+    height: 600px;
+    background: url(../images/bg.jpg);
+    background-size: 1000px 600px;
+    margin: auto;
+    position: relative;
+}
+</style>
+<body>
+    <div id = "container"></div>
+</body>
+</html>

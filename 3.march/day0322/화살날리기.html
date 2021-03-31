@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var arrowArray = [];
+var span;
+var r = [1,2,3,4,5,6,7];
+var velX= 10;
+var x = [0,0,0,0,0,0,0];
+var y = [60,80,100,120,140,160,180];
+var text = ["→", "▶","◑","☞","Э",">","┠"]
+var color = ["red", "pink", "yellow", "blue", "purple","grey","black"]
+function init(){
+    for(i = 0 ; i < 7; i ++){
+        span = document.createElement("span")
+        span.style.position = "absolute";
+        span.style.left = 0 + "px";
+        span.style.top = y[i] + "px";
+        span.innerText=text[i];
+        span.style.fontSize = 20 + "px";
+        span.style.color = color[i]
+        document.body.appendChild(span);
+        arrowArray.push(span);
+    }
+}
+
+function move(){
+    for(i = 0 ; i < 7 ; i ++){
+        x[i] = x[i] + (velX * r[i]);
+        arrowArray[i].style.left = x[i] + "px";
+    }
+}
+window.addEventListener("load", function(){
+    init();
+    setInterval("move()",300);
+})
+</script>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var food = ["소고기","짜장면","치킨","닭찌찌","햄버거"];
+    function getRandom(){
+       var r = parseInt(Math.random()*food.length);
+        console.log(food[r]+"먹어라 돼지야");
+    }
+</script>
+<body>
+    <button onclick="getRandom()">랜돔</button>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    background: violet;
+}
+#regist-area, #detail-area{
+    width: 150px;
+    height: 100%;
+    position: relative;
+    background: gray;
+    float: left;
+}
+#regist-area input, #detail-area input{
+    width: 90%;
+    font-size: 18px;
+    border-radius: 5%;
+    background: dodgerblue;
+    color: ghostwhite;
+    border: 1px solid white;
+}
+#regist-area button{
+    width: 95%;
+    height: 20px;
+    background-color: hotpink;
+}
+#list-wrapper{
+    width: 700px;
+    height: 100%;
+    position: relative;
+    /* background: yellow; */
+    float: left;
+    /* overflow: scroll; */
+}
+#search-area{
+    width: 100%;
+    height: 30px;
+    position: relative;
+    background: rgb(233, 193, 193);
+    /* top : 30px; */
+    float: left
+}
+#result-area{
+    width: 700px;
+    height: 30px;
+    position: absolute;
+    background: whitesmoke;
+    float: left;
+    bottom: -570px;
+}
+</style>
+<script src="../../js/font.js"></script>
+<script>
+var t_id, t_name, t_phone, t_money;
+var d_number, d_id, d_name, d_phone, d_money;
+var listArea, resultArea;
+var memberArray = [];
+var n;
+var s_select, s_input;
+var searchArray =["","","",""];
+function regist(){
+    if(isNaN(t_money.value)){
+        alert("자산은 숫자만 가능합니다 ^^")
+        t_money.value="";
+        t_money.focus();
+        return;
+    }else{
+        var member = [];
+        member[0] = t_id.value;
+        member[1] = t_name.value;
+        member[2] = t_phone.value;
+        member[3] = t_money.value;
+        // console.log(member);
+    
+        memberArray.push(member)
+        t_id.value = "";
+        t_name.value = "";
+        t_phone.value = "";
+        t_money.value = "";
+        getList();
+    }
+}
+function getList(){
+    var tag = "<table width=\'100%\' border=\'1\'px>";
+    tag += "<tr style = \'background : pink\'>"
+    tag += "<td>No.</td>"
+    tag += "<td>ID</td>"
+    tag += "<td>Name.</td>"
+    tag += "<td>Phone</td>"
+    tag += "<td>Money</td>"
+    tag += "</tr>"
+
+    var money = 0;
+
+    for(var i = memberArray.length-1; i >= 0; i --){
+        tag += "<tr onClick = 'readData("+i+");''>"
+            tag += "<td>"+(i+1)+"</td>"
+            for(a = 0; a < memberArray[i].length; a++){
+                tag += "<td>"+memberArray[i][a]+"</td>"
+                if(a == 3){
+                    money += parseInt(memberArray[i][3]);
+                }
+            }
+        tag += "</tr>"
+    }
+    tag +="<tr>"
+    tag +="<td colspan='5' align='right'>가입 회원 수 : "+memberArray.length+
+        "명, 누적 자산 : "+money+"원</td>"
+    tag +="</tr>"
+    tag += "</table>"
+    
+    
+    
+    
+    
+    
+    listArea.innerHTML=tag;
+}
+function getsearch_member(){
+    var tag2 = "<table width=\'100%\' border=\'1\'px>";
+        tag2 += "<tr style = \'background : red\'>"
+            tag2 += "<tr>"
+                tag2 += "<td>검색결과</td>"
+                for(a = 0; a < searchArray.length; a++){
+        tag2 += "<td>"+searchArray[a]+"</td>"
+    }
+    tag2 += "</tr>"
+    resultArea.innerHTML=tag2;
+}
+function init(){
+    listArea = document.getElementById("list-area")
+    resultArea = document.getElementById("result-area")
+    t_id = document.getElementById("t_id");
+    t_name = document.getElementById("t_name");
+    t_phone = document.getElementById("t_phone");
+    t_money = document.getElementById("t_money");
+    d_id = document.getElementById("d_id");
+    d_number = document.getElementById("d_number");
+    d_name = document.getElementById("d_name");
+    d_phone = document.getElementById("d_phone");
+    d_money = document.getElementById("d_money");
+    s_select = document.getElementById("s_select");
+    s_input = document.getElementById("s_input");
+    getList();
+    getsearch_member();
+};
+//검색 해결?
+function searchData(s_value){
+    if(s_input.value == memberArray[i][s_value]){
+                for(a = 0; a < memberArray[i].length ; a++){
+                    searchArray[a] = memberArray[i][a];
+                }
+            }else{return};
+}
+function search_member(){
+    for(i = 0; i < memberArray.length; i++){
+        if(s_select.value == "s_Id"){
+            searchData(0);
+        }else if(s_select.value == "s_Name"){
+            searchData(1);
+        }
+    }
+    getsearch_member();
+}
+function readData(a){
+    d_number.value = (a+1);
+    d_id.value = memberArray[a][0];
+    d_name.value = memberArray[a][1];
+    d_phone.value = memberArray[a][2];
+    d_money.value = memberArray[a][3];
+}
+
+function edit(){
+    if(confirm(d_number.value+"번 데이터를 수정하시겠습니까?")){
+        n = (d_number.value -1);
+        memberArray[n][0] = d_id.value;
+        memberArray[n][1] = d_name.value;
+        memberArray[n][2] = d_phone.value;
+        memberArray[n][3] = d_money.value;
+        d_number.value = "";
+        d_id.value = "";
+        d_name.value = "";
+        d_phone.value = "";
+        d_money.value = "";
+        getList();
+    }
+}
+function t_delete(){
+    if(confirm(d_number.value + "번 데이터를 삭제하시겠습니까??")){
+        n = (d_number.value-1);
+        if(n <= memberArray.length){
+            memberArray.splice(n,1);
+            d_number.value = "";
+            d_id.value = "";
+            d_name.value = "";
+            d_phone.value = "";
+            d_money.value = "";
+            getList();
+        }
+    }
+}
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+<body>
+    <div id = "wrapper">
+        <div id = "regist-area">
+            <input type="text" id = "t_id" placeholder="Input your ID..">
+            <input type="text" id = "t_name" placeholder="Input your Name">
+            <input type="text" id = "t_phone" placeholder="Input your Address">
+            <input type="text" id = "t_money" placeholder="Input your MONEY!!">
+            <button onclick="regist()">Regist!</button>
+        </div>
+        <div id = "list-wrapper">
+            <div id = "search-area">
+                <select id = "s_select">
+                    <option value="">검색 선택▼</option>
+                    <option value="s_Id">search for ID</option>
+                    <option value="s_Name">search for Name</option>
+                </select>
+                <input type="text"placeholder="검색어 입력" id = "s_input">
+                <button onclick ="search_member()" style="font-size: 12px;">
+                    <i class='fas fa-search'></i>
+                </button>
+            <div id = "result-area">
+
+            </div>
+            </div>
+            <div id = "list-area">
+            </div>
+        </div>
+        <div id = "detail-area">
+                <input type="text" id = "d_number" placeholder="Input your No.">
+                <input type="text" id = "d_id" placeholder="Input your ID..">
+                <input type="text" id = "d_name" placeholder="Input your Name">
+                <input type="text" id = "d_phone" placeholder="Input your Address">
+                <input type="text" id = "d_money" placeholder="Input your MONEY!!">
+                <button onclick="edit();">Edit</button>
+                <button onclick="t_delete();">Delete</button>
+        </div>
+    </div>
+</body>
+</html>

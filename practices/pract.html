@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var hour =0;
+var min =0;
+var sec =0;
+var gettime = 0;
+var time = 0;
+var t_hours;
+var t_mins;
+var t_secs;
+function getZero(time){
+    if(time < 10){
+        gettime = "0"+time;
+    }else{
+        gettime = time;
+    }
+    return gettime;
+}
+function go(){
+    if(min==59 && sec ==59){
+        min =0
+        sec = 0
+        hour ++
+        t_hours.value = getZero(hour);
+        t_mins.value = getZero(min);
+        t_secs.value = getZero(sec);
+    }else if(sec == 59){
+        sec = 0
+        min++
+        t_secs.value = getZero(sec);
+        t_mins.value = getZero(min);
+    }else{
+        sec++
+        t_secs.value = getZero(sec);
+    }
+}
+function auto(){
+    setInterval("go()",1);
+}
+function init(){
+    t_hours = document.getElementById("t_hours")
+    t_mins = document.getElementById("t_mins")
+    t_secs = document.getElementById("t_secs")
+    t_hours.value = "0"+0;
+    t_mins.value = "0"+0;
+    t_secs.value = "0"+0;
+};
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+<style>
+.wrapper{
+    width: 800px;
+    height: 400px;
+    background: chocolate;
+    margin: auto;
+    position: relative;
+}
+#timebox{
+    text-align: center;
+    font-size: 50px;
+    color: blanchedalmond;
+}
+#timebox input{
+    font-size: 45px;
+    width: 100px;
+    text-align: center;
+}
+#switchBox{
+    left 300px;
+    position : absolute;
+}
+</style>
+<body>
+    <div class="wrapper">
+        <div id = "timebox">
+            <input type="text" id = "t_hours">시
+            <input type="text" id = "t_mins">분
+            <input type="text" id = "t_secs">초
+        </div>
+        <div id = "switchBox">
+            <button onclick="go()">Go</button>
+            <button onclick="auto()">Auto</button>
+        </div>
+    </div>
+</body>
+</html>

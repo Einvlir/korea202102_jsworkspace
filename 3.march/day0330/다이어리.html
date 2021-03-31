@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+/* body{
+    background-image: url(../../images/bg.jpg);
+} */
+#bg{
+    position: relative;
+    width: 100%;
+    height: 900px;
+    /* background-image: url(../../images/seasons/winter.jpg); */
+}
+#navi{
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    position: relative;
+}
+#navi span{
+    font-size: 30px;
+}
+#bt_prev, #bt_next{
+    width: 50px;
+    height: 40px;
+    background-color: dodgerblue;
+    color: white;
+    border: 1px solid black;
+}
+#bt_prev{
+    position : absolute;
+    left: 0px;
+}
+#bt_next{
+    position : absolute;
+    right: 0px;
+}
+#day_area{
+    height: 100px;
+    
+}
+#date_area{
+    height: 600px;
+ 
+}
+#regist_form{
+    width: 600px;
+    height: 500px;
+    background: #CCC;
+    border: 3px solid #000;
+    position: absolute;
+    left: 150px;
+    top: 150px;
+    border-radius: 20px;
+    display: none;
+    text-align: center;
+}
+#regist_form input{
+    width: 90%;
+}
+#regist_form textarea{
+    width: 90%;
+    height: 400px;
+}
+</style>
+<script src="../../js/DateBox.js"></script>
+<script src="../../js/lib.js"></script>
+<script>
+var cellSize = 100;
+var wrapper;
+var dayArray = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var colorArray = ["red","orange","yellow","green","blue","navy","purple"];
+var dateBox;
+var divArray = [];
+var years;
+var months;
+var bg;
+var d;
+function init(){
+    d = new Date();
+    years = d.getFullYear();
+    months = d.getMonth();
+    wrapper = document.getElementById("wrapper");
+    bg = document.getElementById("bg");
+    bg.style.backgroundImage = "url(../../images/seasons/spring.jpg)"
+    createWrapper();
+    createDays();//요일박스
+    createDate(years,months);//날짜박스
+    getCurrentDate();
+    // createDateText(year,month);
+};
+function getCurrentDate(){
+    var d = new Date();
+    var yy = d.getFullYear();
+    var mm = d.getMonth();
+    setTitle(yy+"년 "+getZeroString(mm+1)+"월");
+        
+}
+function getFirstDay(year, month){
+    var d = new Date(year, month, 1);
+    return d.getDay();
+}
+// 7월 말이 궁금할 경우 8월을 매개변수로!
+function getLastDate(year, month){
+    var d = new Date(year, month, 0)
+    return d.getDate();
+}
+function createWrapper(){
+    wrapper.style.width = cellSize*7 + "px";
+    wrapper.style.height = 100 + 100 + cellSize*6 + "px";
+    wrapper.style.background = "#cccccc"
+    wrapper.style.margin = "auto";
+    wrapper.style.overflow = "hidden";
+
+}
+function createDays(){
+    for(var i = 0 ; i < dayArray.length; i ++){
+        var box = new DateBox(document.getElementById("day_area"), cellSize, cellSize,dayArray[i], "white","black");
+    }
+}
+function createDate(year, month){
+    var d = new Date(year, month)
+    var d_date = d.getDate();
+    var d_day = d.getDay();
+    for(var i = 0; i<dayArray.length * 6 ; i ++){
+        if(i < d_day){
+            dateBox = new DateBox(document.getElementById("date_area"),cellSize,cellSize,getLastDate(year,month) + (i - d_day +1),"grey","black")
+            
+        }else if(i > getLastDate(year, month+1)+d_day-1){
+            dateBox = new DateBox(document.getElementById("date_area"),cellSize,cellSize,(i - getLastDate(year,month+1)),"grey","black")
+            
+        }else{
+            dateBox = new DateBox(document.getElementById("date_area"),cellSize,cellSize,1 + (i - d_day),"white","black")
+        }
+        dateBox.div.addEventListener("click",function(){
+            openDialog(this.innerText)
+        })
+        dateBox.div.addEventListener("mouseover",function(){
+            this.style.background = "dodgerblue";
+        })
+        dateBox.div.addEventListener("mouseout",function(){
+            this.style.background = "black";
+        })
+        divArray.push(dateBox);
+    }
+}
+function changeDate(year, month){
+    var d = new Date(year, month)
+    var d_date = d.getDate();
+    var d_day = d.getDay();
+    for(var i = 0; i < dayArray.length*6; i ++){
+        if(i < d_day){
+            divArray[i].div.style.color = "grey";
+            divArray[i].div.innerText = getLastDate(year,month) + (i - d_day + 1);
+        }else if(i > getLastDate(year, month+1)+d_day -1){
+            divArray[i].div.style.color = "grey";
+            divArray[i].div.innerText = (i - (d_day + getLastDate(year,month+1)-1))
+        }else{
+            divArray[i].div.style.color = "white";
+            divArray[i].div.innerText = 1 + (i - d_day);
+        };
+    }
+}
+function seasonCheck(){
+    if(months >= 2 && months <=3){
+        bg.style.backgroundImage = "url(../../images/seasons/spring.jpg)"
+    }else if(months > 3 && months <= 8){
+        bg.style.backgroundImage  = "url(../../images/seasons/summer.jpg)"
+    }else if(months > 8 && months <=10){
+        bg.style.backgroundImage  = "url(../../images/seasons/autumn.jpg)"
+    }else{
+        bg.style.backgroundImage  = "url(../../images/seasons/winter.jpg)"
+    }
+
+}
+function calNext(){
+    months = (months == 11 ) ? 0 : months+1;
+    years = (months == 0) ? years + 1 : years;
+    seasonCheck();
+    setTitle(years+"년 "+getZeroString(months+1)+"월");
+    changeDate(years,months);
+}
+function calPrev(){
+    months = (months == 0) ? 11 : months -1;
+    years = (months == 11) ? years - 1 : years;
+    seasonCheck();
+    setTitle(years+"년 "+getZeroString(months+1)+"월");
+    changeDate(years,months);
+}
+//달력의 날짜는 변경이 자주 일어나므로 함수로 정의
+function setTitle(text){
+    document.getElementById("cal_title").innerText = text;
+}
+function openDialog(index){
+    document.getElementById("regist_form").style.display = "block";
+}
+function closeDialog(){
+    document.getElementById("regist_form").style.display = "none";
+    
+}
+function regist(){
+
+}
+window.addEventListener('load',function(){
+    init();
+});
+</script>
+<body>
+    <div id = "bg">
+        <div id = "regist_form">
+            <input type="text" placeholder="제목 입력"><br>
+            <textarea placeholder="내용 입력"></textarea><br>
+            <button>등록</button>
+            <button onclick="closeDialog()">닫기</button>
+        </div>
+        <div id = "wrapper">
+            <div id = "navi">
+                <button id = "bt_prev" onclick="calPrev()">prev</button>
+                <span id = "cal_title"></span>
+                <button id = "bt_next" onclick="calNext()">next</button>
+            </div>
+            <div id = "day_area"></div>
+            <div id = "date_area"></div>
+        </div>
+    </div>
+</body>
+</html>

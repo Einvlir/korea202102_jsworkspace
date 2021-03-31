@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="../../js/Ball.js"></script>
+<script src="../../js/lib.js"></script>
+<script>
+var wrapper;
+var ballArray = ["ball1.png","ball2.png","ball3.png","bowling_ball.png","foot_ball.png"
+,"poke_ball.png","tennis_ball.png","volley_ball.png"];
+var ball = [];
+var count = 0;
+var color = ["red","orange","blue","purple","green","pink"];
+function init(){
+    createWall();
+}
+function createWall(){
+    wrapper = document.createElement("div");
+    wrapper.style.width = 800 + "px";
+    wrapper.style.height = 700 + "px";
+    wrapper.style.margin = "auto";
+    wrapper.style.border = 5 + "px solid red";
+    wrapper.style.position = "relative";
+
+    document.body.appendChild(wrapper);
+}
+
+function createBall(){
+    ball[count] = new Ball(wrapper,getRandom(5)*5+5,getRandom(5)*5 +5,color[getRandom(color.length)],
+    "../../images/balls/" + ballArray[getRandom([ballArray.length])],35);
+    count ++;
+    
+}
+function space(){
+    // alert(event.keyCode);
+    if(event.keyCode==32){
+        createBall();
+    }
+}
+function auto(){
+    for(i = 0; i < ball.length;i++){
+        ball[i].move();
+    }
+}
+
+window.addEventListener("load", function(){
+    init();
+    setInterval("auto()",45);
+})
+</script>
+<body onkeydown="space()">
+    
+</body>
+</html>

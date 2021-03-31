@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+/* *{background-color: ;} */
+</style>
+<script src="../../js/Rect.js"></script>
+<script src="../../js/lib.js"></script>
+<script>
+var container;
+var cellSize = 100;
+var cols = 10; //컬럼 갯수(가로);
+var rows = 7; //레코드 수(세로)
+var a = 0;
+var i = 0;
+var flag = true;
+var color = ["red","yellow","orange","green","blue","navy","purple","pink","goldenrod","bisque","firebrick","mediumaquamarine"]
+function init(){
+    container = document.createElement("div");
+    container.style.width = cellSize*cols + "px";
+    container.style.height = cellSize*rows + "px";
+    container.style.margin = "auto";
+    container.style.backgroundImage = "url(../../images/travel2/aa.jpg";
+    container.style.backgroundSize = (cols*cellSize) +"px "+ (rows*cellSize) + "px";
+    container.style.position = "relative"
+
+
+    document.body.appendChild(container);
+}
+//container, width, height, x, y, bg
+function createRect(){    
+    if(flag){
+        var rect = new Rect(container,cellSize,cellSize,cellSize*i,cellSize*a,color[getRandom(color.length)]);
+        a = (i == cols-1) ? a+1 : a;
+        i = (i == cols-1) ? i = 0 : i+1;
+        flag = (a ==rows) ? false : true;
+    }
+}
+function auto(){
+    setInterval("createRect()",200);
+    
+}
+window.addEventListener("load", function(){
+    auto();
+    init();
+})
+</script>
+<body>
+    
+</body>
+</html>

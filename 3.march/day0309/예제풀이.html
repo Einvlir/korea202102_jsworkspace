@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>풀이</title>
+</head>
+<script>
+window.addEventListener("load", function(){
+    init();
+});
+var div;
+var n=1;
+function init(){
+    var bt = document.createElement("button");
+    var bt2 = document.createElement("button");
+    var bt3 = document.createElement("button");
+    div = document.createElement("div");
+    bt.innerText = "카드 생성"
+    bt2.innerText = "자동 카드 생성"
+    bt3.innerText = "멈춤"
+    bt.addEventListener("click", function(){
+        createcard();
+    });
+    bt2.addEventListener("click", function(){
+        setInterval("createcard()",100);
+    });
+    bt3.addEventListener("click", function(){
+        clearInterval("createcard()");
+    });
+    div.style.width = 800 + "px";
+    div.style.height = 600 + "px";
+    div.style.background = "yellow";
+    div.style.margin = "auto";
+    div.style.overflow = "hidden";
+
+    document.body.appendChild(bt);
+    document.body.appendChild(bt2);
+    document.body.appendChild(bt3);
+    document.body.appendChild(div);
+}
+function createcard(){
+    var img = document.createElement("img");
+    img.src = "../images/card/"+n+".png";
+    div.appendChild(img);
+    n = (n%5)+1
+}
+</script>
+<body>
+    
+</body>
+</html>

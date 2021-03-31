@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0px;
+    padding: 0px;
+    }
+#wrapper{
+    width: 100%;
+    height: 600px;
+    background: url("../../images/shooting/bg.jpg");
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+#info{
+    background: yellow;
+    opacity: 0.4;
+    /* font-size: 9px; */
+}
+</style>
+<script src="../../js/lib.js"></script>
+<script src="../../js/Plane.js"></script>
+<script src="../../js/Bullet.js"></script>
+<script src="../../js/Enemy.js"></script>
+<script>
+var img_location = "../../images/shooting/";
+var hero = ["plane.png","hero2.png"];
+var enemy_img = ["e1.png","e2.png","e3.png","e4.png","e5.png"];
+var bullet_img = [];
+var wrapper;
+var info;
+var bgX = 0;
+var plane;
+var enemyArray = new Array();
+var cnt = 0;
+var bulletArray = new Array();
+//(container, src, width, height, x, y)
+function init(){
+    wrapper = document.getElementById("wrapper");
+    info = document.getElementById("info");
+    createHero();
+    for(i = 0; i < 5; i ++){
+        createEnemy();
+    }
+
+    document.body.addEventListener("keydown",function(){
+            pressDown();
+        });
+    document.body.addEventListener("keyup",function(){
+            pressUp();
+        });
+}
+function pressUp(){
+    switch(event.keyCode){
+        case 37 : plane.velX = 0;break;
+        case 39 : plane.velX = 0;break;
+        case 40 : plane.velY = 0;break;
+        case 38 : plane.velY = 0;break;
+    }
+}
+function pressDown(){//b = 66, space = 32, i =73 37 38 39 40 : 좌 상 우 하
+
+var key = event.keyCode;
+// plane.x += 10;
+switch(key){
+        case 37:plane.velX = -5;break;
+        case 39:plane.velX = 5;break;
+        case 40:plane.velY = 5;break;
+        case 38:plane.velY = -5;break;
+        case 32:fire();break;
+    }
+    plane.render();
+}
+function createHero(){
+    plane = new Plane(wrapper,img_location+hero[0],90,70,200,200,0,0);
+    
+}
+function createEnemy(){
+    var enemy = new Enemy(wrapper,img_location+enemy_img[getRandom(enemy_img.length)],60,45,screen.width+(getRandom(50)*2),(getRandom(10)*50),-1,0);
+    enemyArray.push(enemy);
+}
+function bgEffect(){
+    bgX--;
+    wrapper.style.backgroundPosition = bgX + "px 0px"
+}
+function fire(){
+    var bullet = new Bullet(wrapper, img_location+"ball.png",15,15,
+    plane.x+plane.width,plane.y+(plane.height/2),10,0)
+    bulletArray.push(bullet);
+}
+//실시간 정보를 출력할 햄수
+function log(){
+    var str = "총알 갯수 : " + bulletArray.length;
+    str = str + ", 남의 적의 수 : " + enemyArray.length;
+    info.innerText = str;
+}
+function gameLoop(){
+    log();
+    bgEffect();
+    plane.tick();
+    plane.render();
+    for(var i = 0; i < bulletArray.length; i++){
+        bulletArray[i].render();
+        bulletArray[i].tick();
+    }
+    for(var i = 0; i < enemyArray.length; i++){
+        enemyArray[i].render();
+        enemyArray[i].tick();
+    }
+}
+
+window.addEventListener("load", function(){
+    setInterval("gameLoop()",10);//fps
+    init();
+})
+    </script>
+<body>
+    <div id = "wrapper">
+        <div id = "info"></div>
+    </div>
+</body>
+</html>

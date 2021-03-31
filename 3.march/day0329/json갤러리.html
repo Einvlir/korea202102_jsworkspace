@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    margin :auto;
+    width: 1000px;
+    height: 800px;
+    background: yellow;
+}
+#movie_title{
+    font-size: 55px;
+    width: 100%;
+    height: 100px;
+    background: wheat;
+    text-align: center;
+}
+#content_wrapper{
+    width: 100%;
+    height: 550px;
+    background: yellowgreen;
+    overflow: hidden;
+}
+#pic{
+    width: 500px;
+    height: 100%;
+    background: violet;
+    float : left;
+    position: relative;
+}
+#detail{
+    font-size: 32px;
+    width: 500px;
+    height: 100%;
+    background: lightskyblue;
+    float: right;
+}
+#navi{
+    width: 100%;
+    height: 50px;
+    background: cyan;
+    clear: both;
+    position: relative;
+}
+#thumb{
+width: 100%;
+height: 100px;
+background: rosybrown;
+position: relative;
+overflow: hidden;
+}
+
+</style>
+<script src="../../js/marvel.js"></script>
+<script src="../../js/Pointer.js"></script>
+<script>
+var pic;
+var box;
+var veil;
+var flag = true;
+var cnt = 0;
+var Box_opacity = 1;
+var img;
+var pointer;
+var targetX = 0;
+function init(){
+    createBox();
+    createThumb();
+    createPointer();
+    getDetail(movies.marvel[0]);
+    
+};
+
+function getDetail(obj){
+    pic = document.getElementById("pic");
+    pic.style.backgroundImage = "url("+obj.url+")";
+    pic.style.backgroundSize = 500+ "px "+550+"px";
+
+    var msg = "";
+    msg += "제목 : " + obj.title + "<br>"
+    msg += "부제목 : " + obj.phase + "<br>"
+    msg += "개봉년도 : " + obj.release_year + "<br>"
+    msg += "상영시간 : " + obj.running_time + "<br>"
+    msg += "제작비(달러) : " + obj.budget + "<br>"
+    msg += "수익(달러) : " + obj.gross + "<br>"
+    document.getElementById("detail").innerHTML=(msg);
+
+    document.getElementById("movie_title").innerText = obj.title;
+}
+function createBox(){
+    box = document.getElementById("box")
+    box.style.position = "absolute";
+    box.style.left = 0 + "px";
+    box.style.top = 0 + "px";
+    box.style.width = (movies.marvel.length-1)*105+5 + "px";
+    box.style.height = 100 + "px";
+    box.style.backgroundColor = "blue";
+    
+};
+function createPointer(){
+    pointer = new Pointer(document.getElementById("thumb"),100,100,0,0,0.1,0);
+}
+function aniLoop(){
+    pointer.tick();
+    pointer.render();
+    moveBox();
+}
+function createThumb(){
+    for(var i = 0; i < movies.marvel.length; i ++){
+        var movie = movies.marvel[i]
+        img =  document.createElement("img")
+        img.id = i;
+        img.src = movie.url;
+        img.style.width = 90 + "px";
+        img.style.height = 90 + "px";
+        img.style.position = "absolute"
+        img.style.left = (100*i) + 5 + "px"
+        img.style.top = 5 + "px"
+        img.addEventListener('click',function(){
+            getDetail(movies.marvel[this.id]);
+            pointer.targetX = (this.id*100) % 1000;
+        })
+        document.getElementById("box").appendChild(img);
+    }
+}
+function moveBox(){
+    box.style.left = parseFloat(box.style.left) + 0.1*(targetX - parseFloat(box.style.left))+"px";
+}
+function setPage(page){
+    targetX = page;
+}
+window.addEventListener("load",function(){
+    init();
+    setInterval("aniLoop()",10);
+})
+</script>
+<body>
+    <div id = "wrapper">
+        <div id = "movie_title">제목</div>
+        <div id = "content_wrapper">
+            <div id = "pic"></div>
+            <div id = "detail"></div>
+        </div>
+        <div id = "navi">
+            <button style="position : absolute;left:0px" onclick="setPage(0)">Prev</button>
+            <button style="position : absolute;right:0px" onclick="setPage(-1000)">Next</button>
+        </div>
+        <div id = "thumb">
+            <div id = box></div>
+        </div>
+    </div>
+</body>
+</html>

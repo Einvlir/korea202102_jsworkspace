@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var img_name = 5;
+    function stamp(){
+        var img = document.createElement("img");
+        img.src = "../images/card/"+img_name+".png";
+
+        var x = event.clientX;
+        var y = event.clientY;
+
+        img.style.position = "absolute";
+        img.style.left = x + "px";
+        img.style.top = y + "px";
+
+        var content = document.querySelector("#content");
+        content.appendChild(img);
+}
+</script>
+<style>
+body{
+    margin: 0px;
+}
+#wrapper{
+    width: 700px;
+    height: 600px;
+    border: 10px;
+    position: relative;
+    background: yellow;
+    /* margin: left; */
+    overflow: hidden;
+}
+#menu{
+    width: 100px;
+    height: 100%;
+    background-color: rgb(152, 139, 228);
+    float: left;
+    /* border : 1px; */
+
+}
+#content{
+    width: 600px;
+    height: 100%;
+    background-color: teal;
+    float: left;
+    position: relative;
+}
+#menu img{
+/* width: 80px;
+height: 70px; */
+border: 5px solid red;
+margin : 5px;
+
+}
+</style>
+<body>
+    <div id = "wrapper">
+        <div id = "content" onmouseup="stamp()"></div>
+        <div id = "menu">
+            <img src="../images/card/1.png" onclick="img_name=1">
+            <img src="../images/card/2.png" onclick="img_name=2">
+            <img src="../images/card/3.png" onclick="img_name=3">
+            <img src="../images/card/4.png" onclick="img_name=4">
+            <img src="../images/card/5.png" onclick="img_name=5">
+        </div>
+    </div>
+</body>
+</html>

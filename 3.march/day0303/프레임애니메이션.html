@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var a = 1;
+function next(){
+    if(a < 18){
+        a += 1;
+        document.querySelector("img").src="../images/hero/image"+a+".png";
+    }else{a = 0;}
+}
+function gameLoop(){
+    setInterval("next()", 10);
+}
+
+
+</script>
+<body>
+    <img src="../images/hero/image1.png" alt="">
+    <button onclick="next()">애니메이션 동작</button>
+    <button onclick="gameLoop();">Auto</button>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper{
+        margin: auto;
+        width: 1200px;
+        height: 650px;
+        background-image: url(../images/bg.jpg);
+        background-size: 1200px 650px;
+        background-repeat: repeat-x;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+<script>
+var img;
+var x = 0;
+var y = 200;
+var speed = 10;
+var container;
+var bGx = 0;
+//우주선을 디자인적으로 생성시키지 말고, 프로그래밍적으로 생성해보자!
+function init(){
+    img = document.createElement("img");//기존에 없었던 요소 생성
+    img.src = "../images/hero2.png";
+    img.id="hero";
+    img.style.width = 100 + "px";
+    img.style.height = 75 + "px";
+    img.style.position="absolute";
+    img.style.left = x + "px";
+    img.style.top = y + "px";
+    container = document.getElementById("wrapper");
+    container.appendChild(img);
+    setInterval("moveBg()", 10)
+}
+function moveBg(){
+
+    bGx--;
+    container.style.backgroundPosition =  bGx +"px 0px";
+    // setTimeout("moveBg()",10);
+}
+
+function joystick(){
+    console.log("당신이 누른 철자에 매칭되는 아스키 코드는", event.keyCode);
+    // 우주선을 x축 방향으로 증가 ( 우측 이동 )
+    if(event.keyCode==39){
+        x += speed;
+        img.style.left = x + "px"; 
+    }
+    // 우주선을 x축 방향으로 김소 ( 좌측 이동 )
+    if(event.keyCode==37){
+        x -= speed;
+        img.style.left = x + "px"; 
+    }
+    // 우주선을 y축 방향으로 증가 ( 아래 이동 )
+    if(event.keyCode==40){
+        y += speed;
+        img.style.top = y + "px"; 
+    }
+    // 우주선을 y축 방향으로 감소 ( 위쪽 이동 )
+    if(event.keyCode==38){
+        y -= speed;
+        img.style.top = y + "px";
+    }
+    // setTimeout("joystick()",10); 
+    // if(event.keyCode==38 && event.keycode == 37){
+    //     y -= 10;
+    //     x -= 10;
+    //     img.style.top = y + "px"; 
+    //     img.style.left = x + "px"; 
+    // }
+}
+// if(event.keyCode == true){setInterval("joystick()",1)}
+// else{clearInterval("joystick()")}
+</script>
+<body onload="init();moveBg();" onkeydown="joystick()">
+    <div id = "wrapper"></div>
+    <!-- <img id = "hero" src="../images/hero2.png" alt=""> -->
+</body>
+</html>
+<script>
+    // init();
+</script>
+    <!-- <body onload="init();" onkeydown='alert("누가 \"나\"를 부르느냐");'> -->

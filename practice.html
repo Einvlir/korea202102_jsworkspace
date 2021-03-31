@@ -4,39 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연습장이에용</title>
-<style>
-.Title_Style{
-    text-align: center;
-    background-color: red;
-    font-size:9px;color: yellow;
-}
-</style>
+    <title>Document</title>
 </head>
+<script src="./Block.js"></script>
+<script>
+var wrapper;
+function init(){
+    wrapper = document.getElementById("wrapper");
+    wrapper.style.width = 800 + "px";
+    wrapper.style.height = 600 + "px";
+    wrapper.style.position = "relative";
+    wrapper.style.margin = "auto";
+    wrapper.style.background = "white";
+    wrapper.style.border = "4px solid red";
+
+    createBlock();
+}
+//container, height, width, color, borderColor
+function createBlock(){
+    var block = new Block(wrapper, 300, 50, "red", "black")
+}
+
+window.addEventListener("load",function(){
+    init();
+})
+</script>
 <body>
-    <table border="1px" align="center" width ="700">
-        <tr>
-            <td colspan="4" align="center">
-                옥상층
-            </td>
-        </tr>
-        <tr>
-            <td class="Title_Style">층</td>
-            <td>1호</td>
-            <td colspan="2">2호</td>
-        </tr>
-        <tr>
-            <td class="Title_Style">층</td>
-            <td rowspan="2">1호</td>
-            <td>2호</td>
-            <td>3호</td>
-        </tr>
-        <tr>
-           
-            <td class="Title_Style">층</td>
-            <td>2호</td>
-            <td>3호</td>
-        </tr>
-    </table>
+    <div id = "wrapper"></div>
 </body>
 </html>

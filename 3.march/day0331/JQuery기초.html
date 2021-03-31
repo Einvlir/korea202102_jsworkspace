@@ -1,0 +1,30 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<script>
+
+/*
+Jquery는 신 기술이 아닌 자바스크립트 기반의 라이브러리임.(객체, 함수등의 집합)
+주 사용목적 :  자바스크립트 문법을 알아야 DOM 등을 제어할 수 있으므로 
+                    개발자가 아닌 분야의 사람들에게 진입장벽이 높다..
+                    따라서 js를 사용하지 않고 제이쿼리를 이용하여 동일한
+                    제어 효과를 나타낼 수 있는 라이브러리로써 사용한다.
+특) 코드가 간략함
+문법형식) (누구를).어떻게()
+            이 떄 누구 자리를 선택자라 한다.
+            여기서 선택자란 css의 선택자를 의미.
+*/
+//window.addEventListener("load",function(){})를 이렇게 표현함.
+$(document).ready(function(){
+    $("input[type='text']").val("yellow")
+    // document.querySelector("h1").innerText = "애플";
+
+});
+</script>
+<style>
+    input[type="text"]{
+        background: chartreuse;
+    }
+</style>
+<input type="text">
+<input type="checkbox">

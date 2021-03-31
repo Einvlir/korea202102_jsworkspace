@@ -1,0 +1,18 @@
+<script>
+class Pikachu{
+
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.img = document.createElement("img");
+        this.img.src = "../../images/pika.png";
+        this.img.style.position = "absolute";
+        this.img.style.left = this.x + "px";
+        this.img.style.top = this.y + "px";
+        this.img.style.width = 100 + "px";
+        
+        document.body.appendChild(this.img);
+    }   
+
+}
+</script>

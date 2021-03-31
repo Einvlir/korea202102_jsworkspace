@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    width: 1200px;
+    height: 800px;
+    background: chartreuse;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+#dashBoard{
+    width: 200px;
+    height: 100%;
+    /* position: absolute; */
+    float: left;
+    background : powderblue;
+    margin: 0px;
+}
+#content{
+    width: 1000px;
+    height: 100%;
+    position: relative;
+    float: left;
+    background-image: url(../../images/bg.jpg);
+    background-size: cover;
+    
+    /* left: 200px; */
+}
+#dashBoard input{
+    width: 95%;
+    font-size: 20px;
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold;
+}
+#hpBox{
+    width: 100%;
+    height: 190px;
+    margin-top: 50px;
+    margin-left: 4px;
+    box-sizing: border-box;
+    padding: 10px 2px 2px 2px; /*left top right bottom*/
+}
+#scoreArea{
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 200px;
+}
+</style>
+<script src="../../js/lib.js"></script>
+<script>
+var wordArray =["사과","토끼","호랑이","사자","핸드폰","마추픽추","콘센트","고양이","아홉","하이텔"];
+var wordArray1 =["바나나","원숭이","강아지","병아리","오디오","서울","에어컨","고라니","둘","나우누리"];
+var wordArray2 =["파인애플","하마","악어","코끼리","삐삐","도쿄","컴퓨터","살쾡이","여덟","엠파스"];
+var wordArray3 =["딸기","코뿔소","기린","치타","마우스","애팔래치아","리모컨","가젤","여섯","야후코리아"];
+var spanArray = [];
+var wordarrray= [];
+var HpArray = [];
+var hpBox;
+var content;
+var scoreArea;
+var keyword;
+var dropFlag = true;
+// var yArray = [];
+var velY = [];
+var score = 0;
+function init(){
+    hpBox = document.getElementById("hpBox");
+    content = document.getElementById("content");
+    scoreArea = document.getElementById("scoreArea");
+    keyword = document.getElementById("keyword");
+    wordarrray.push(wordArray,wordArray1,wordArray2,wordArray3);
+    
+    keyword.addEventListener("keyup", function(){
+        // console.log(event.keyCode);
+        if(event.keyCode == 13){
+            
+            for(i = 0; i < spanArray.length ; i ++){
+                if(spanArray[i].innerText == keyword.value){
+                    removeObject(content, spanArray[i],spanArray,i);
+                    keyword.value="";
+                    score += 10;
+                    printScore();
+                }
+            }
+            checkSuccess();       
+        }
+    });
+}
+function createHp(){
+    //hp박스를 div로 생성..
+    for(i = 0 ; i < 9 ; i ++){
+        var rect = document.createElement("div");
+        rect.style.width = 60 + "px";
+        rect.style.height = 50 + "px";
+        rect.style.backgroundColor = "red";
+        rect.style.border="1px solid yellow";
+        rect.style.position="relative";
+        rect.style.float = "left";
+        rect.style.borderRadius = 20+"%"
+        
+        hpBox.appendChild(rect);
+        HpArray.push(rect);
+    }
+}
+function printScore(){
+    scoreArea.innerText = score + "점"
+    
+}
+function createWord(){
+    var n = getRandom(wordarrray.length);
+    for(i = 0; i < wordarrray[n].length ; i++){
+        var span = document.createElement("span");
+        span.innerText = wordarrray[n][i];
+        span.style.backgroundColor="pink";
+        span.style.position = "absolute";
+        span.style.left = 50 + (70*i) + "px";
+        // yArray[i]=-getRandom(300);
+        span.style.top = -getRandom(300) + "px";
+        content.appendChild(span);
+        
+        spanArray.push(span);
+    }
+}
+function checkSuccess(){
+    if(spanArray.length <= 0 && HpArray.length<=1){
+        alert("통과")
+        dropFlag = false;
+    }
+}
+function dropDown(){
+    if(dropFlag){
+        for(i = 0 ; i < spanArray.length; i ++){
+            // velY[i] =  getRandom(30);
+            // yArray[i] = yArray[i] + velY[i];
+            spanArray[i].style.top = 15 + parseFloat(spanArray[i].style.top) + "px";
+            
+            if(parseFloat(spanArray[i].style.top) >= 800){
+                removeObject(content, spanArray[i],spanArray,i);
+                if(HpArray.length <= 1){
+                    dropFlag = !dropFlag;
+                    // console.log("유저의 선택은", ans)
+                    if(confirm("미션 실패\n재도전 ㄱ?")){location.reload()};
+                }else{
+                    removeObject(hpBox,HpArray[HpArray.length-1],HpArray,(HpArray.length-1));
+                    checkSuccess();
+                }
+                // console.log(i+"번째.. 주금..")
+                // console.log("남아있는 HP",HpArray.length);
+
+            }  
+        }
+    }
+}
+//이미지상, 메모리상에서 동시에 삭제하는 함수
+function removeObject(container, child, arr, index){
+    container.removeChild(child);
+    arr.splice(index, 1);
+
+}
+window.addEventListener("load",function(){
+    init();    
+    createHp();
+    printScore(score);
+    createWord();
+    setInterval("dropDown()",300);
+    keyword.focus();
+})
+</script>
+<body>
+    <div id = "wrapper">
+        <div id = "dashBoard">
+            <div id = "hpBox"></div>
+            <input type="text" placeholder="단어입력" id = "keyword">
+            <div id = "scoreArea">점수올곳</div>
+        </div>
+        <div id = "content"></div>
+    </div>
+</body>
+</html>

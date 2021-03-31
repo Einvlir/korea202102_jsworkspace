@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var img;
+    var bannerFrame;
+    var gap = 5;
+    function init(){
+        bannerFrame = document.getElementById("banner-frame");
+        // document.createElement
+        createProduct();
+    }
+    function createProduct(){
+        for(i = 1 ; i < 9; i ++){
+            img = document.createElement("img");
+            img.src = "../images/toy/"+i+".jpg";
+            img.style.left = (100+gap) * (i-1) + "px";
+            img.style.width = 100 + "px";
+            img.style.height = 100 + "px";
+            img.style.position = "absolute";
+            bannerFrame.appendChild(img);
+        }
+    }
+    function move(){
+        
+    }
+    window.addEventListener("load",function(){
+        init();
+    })
+</script>
+<style>
+#banner-frame{
+    width: 415px;
+    height: 110px;
+    position: relative;
+    margin: auto;
+    background: yellow;
+    overflow: hidden;
+    padding-top: 5px;
+    box-sizing: border-box;
+}
+</style>
+<body>
+    <div id = "banner-frame">
+    </div>
+</body>
+</html>

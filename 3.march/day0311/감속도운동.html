@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var targetX = 500;
+    var a = 0.05; //비율계수
+    var pika;
+    var swit;
+    window.addEventListener("load",function(){
+        pika = document.getElementById("pika");
+        pika.style.position = "absolute";
+        pika.style.left=0+"px";
+        pika.style.top=200+"px";
+        
+    })
+
+function move(){
+    
+    // pika.style.left = 200 + targetX+"px";
+    // 위치 = 현재위치 + 남은거리(목표지점 - 현재위치)/10
+    // var pikaStance = parseInt(pika.style.left);
+    pika.style.left = parseInt(pika.style.left) + a * (targetX - parseInt(pika.style.left)) + "px";
+    setTimeout("move()",10);
+}
+
+</script>
+<body>
+    <button onclick = "move()">움직이기</button>
+    <img src="../images/pika.png" id="pika" width="80px">
+</body>
+</html>

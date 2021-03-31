@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    width: 600px;
+    height: 600px;
+    /* background-color: blue; */
+    margin:auto;
+}
+#pic{
+    width: 100%;
+    height: 550px;
+    background-color: #CCCCCC;
+    
+}
+#button_control{
+    width: 100%;
+    height: 50px;
+    /* background-color: red; */
+    position: relative;
+}
+#pic img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#button_control img{
+    width: 40px;
+    /* object-fit: cover; */
+}
+.bt-right{
+    position: absolute;
+    right: 0px;
+}
+.bt-left{
+    position: absolute;
+    left: 0px;
+}
+
+</style>
+<script>
+    var n =1;
+function next(){
+    n += 1;
+    document.querySelector("#pic img").src="../images/practice/img" + n + ".png";
+}
+function previous(){
+    n -= 1;
+    document.querySelector("#pic img").src="../images/practice/img" + n + ".png";
+}
+</script>
+<body>
+    <div id = "wrapper">
+        <div id = "pic">
+            <img src="../images/practice/img1.png" alt="">
+        </div>
+        <div id = "button_control">
+            <img id = "bt1" class = "bt-left" src="../images/practice/left_btn.png" alt="" onclick="previous()">
+            <img id = "bt2" class = "bt-right" src="../images/practice/right_btn.png" alt="" onclick="next()">
+        </div>
+    </div>
+</body>
+</html>

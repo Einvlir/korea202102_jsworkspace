@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개-발</title>
+</head>
+<style>
+#wrapper{
+    position: relative;
+    background: yellow;
+    height: 800px;
+    width: 600px;
+    margin: auto;
+}
+
+</style>
+<script>
+var cnt = 0;
+var img;
+// var imgName;
+// window.addEventListener("click")
+// window.addEventListener("load", function(){
+function addCard(){
+    if(cnt == 0){
+        cnt++;
+        img = document.createElement("img");
+        img.src = "../images/card/spade_A.png";
+        img.style.position = "relative";
+    }else if(cnt == 1){
+        cnt++;
+        img = document.createElement("img");
+        img.src = "../images/card/spade_2.png";
+        img.style.position = "relative";
+    }else if(cnt == 2){
+        cnt++;
+        img = document.createElement("img");
+        img.src = "../images/card/spade_3.png";
+        img.style.position = "relative";
+    }else if(cnt == 3){
+        cnt++;
+        img = document.createElement("img");
+        img.src = "../images/card/spade_4.png";
+        img.style.position = "relative";
+    }else if(cnt == 4){
+        cnt = 0; 
+        img = document.createElement("img");
+        img.src = "../images/card/joker.png";
+        img.style.position = "relative";
+    }else{cnt = 0;}
+
+
+    var wrapper = document.getElementById("wrapper");
+    wrapper.appendChild(img);
+}
+// });
+</script>
+<body>
+    <div id = "wrapper"></div>
+    <button id = "add_Card" onclick="addCard()">카드 추가</button>
+</body>
+</html>

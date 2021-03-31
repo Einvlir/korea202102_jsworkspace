@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회전회오리</title>
+</head>
+<style>
+#wrapper{
+    margin : auto;
+    width: 320px;
+    height: 320px;
+    text-align: center;
+}
+#pic{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    border : 5px dotted blue;
+    /* animation-name: pic-rotate;
+    animation-duration: 0.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; */
+}
+    /* @keyframes pic-rotate {
+        from{transform: rotate(0deg);}
+            to{transform: rotate(360deg);}
+    } */
+</style>
+<script>
+    var n = 0;
+    function rotate1(){
+        n += 30;
+        document.querySelector("#pic").style.transform="rotate("+n+"deg)";
+    }
+    function rotate2(){
+        n -=30;
+        document.querySelector("#pic").style.transform="rotate(" + n +"deg)";
+
+    }
+
+</script>
+<body>
+    <div id = "wrapper">
+        <button onclick="rotate1()">시계방향 회전</button>
+        <button onclick="rotate2()">반시계반향 회전</button>
+        <p>
+        <img id="pic" src="../images/empty.jpg" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // document.write("<h1 style =\"font-size : 100px\">호에엥</h1>")
+    document.write("<table border = \"1px\" width = \"600px\">");
+        for(i = 1 ; i <= 4 ; i ++){
+            document.write("<tr>");
+                for(j =1 ; j <= 15; j ++){
+                    if(j <= 10){
+                        document.write("<td>"+i+"0"+j+"</td>");
+                    }else{
+                        document.write("<td>"+i+""+j+"</td>");
+                    }
+                }
+            document.write("</tr>");
+            }
+    document.write("</table>");
+    </script>
+<style>
+
+</style>
+<body>
+
+</body>
+</html>

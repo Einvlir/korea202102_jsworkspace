@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var n = 0;
+var swit = false;
+// var herox = 0;
+function move(){
+    swit = (n == 500 || n == 0) ? !swit : swit;
+    (swit) ? n += 10 : n -= 10;
+    document.querySelector("h1").innerText = "x축값 : " + n;
+    document.querySelector("#hero").style.left = n + "px";
+}
+</script>
+<style>
+    #hero{
+        position :absolute;
+        left : 0px;
+        top : 200px;
+    }
+</style>
+<body>
+    <button onclick="move()">수동이동</button><br>
+        <h1>x축값 : 0</h1>
+    <img id = "hero" src="../images/hero2.png" alt="" width="50px">
+</body>
+</html>

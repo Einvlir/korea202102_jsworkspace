@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이차원 배열은 데이터베이스다</title>
+</head>
+<style>
+body{margin : 0px;}
+.wrapper{
+    width: 1200px;
+    height: 900px;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+#content{
+    width: 1000px;
+    height: 100%;
+    background-color: yellow;
+    float: left;
+    overflow: hidden;
+}
+#log{
+    width: 200px;
+    height: 100%;
+    float: left;
+    background-color: thistle;
+}
+</style>
+<script>
+var index = 0;
+var m = 0;
+var playFlag = false;
+var rectsize = 50;
+var recordFlag = false;
+var content;
+var log;
+var aptBox = [];
+var flag = false;
+var border = 0;
+var recordArray = [];
+function init(){
+    content = document.getElementById("content");
+    log = document.getElementById("log");
+    createRect();
+    setInterval("recPlay()",200);
+    content.addEventListener("mousedown", function(){
+        flag = true;
+    })
+    content.addEventListener("mouseup", function(){
+        flag = false;
+    })
+}
+function createRect(){
+    for(var a = 0; a < (900/rectsize); a++){
+        var lineBox = []
+        for(var i=0 ; i<(1000/rectsize);i++){
+            var rect = document.createElement("div");            
+            rect.style.border = border + "px solid red";
+            rect.style.width = rectsize + "px";
+            rect.style.height = rectsize + "px";
+            rect.style.boxSizing = "border-box";
+            rect.style.float = "left"
+            rect.id = [a,i];
+            // rect.innerText=rect.id;
+            content.appendChild(rect);
+
+            lineBox.push(rect);
+            rect.addEventListener("mouseover", function(){
+                if(flag){
+                this.style.background = "red";
+                var pos = this.id.split(",");
+                // console.log(this.id[0]+"층, "+this.id[1]+"호")
+                
+                if(recordFlag){
+                    recordArray.push(pos);
+                    printLog();
+                    }
+                }
+            });   
+        }
+        aptBox.push(lineBox);
+    }
+}
+function setFlag(){
+    border = (border == 0) ? 1 : 0;
+    for(var a = 0; a<aptBox.length;a++){
+        for(var i = 0; i<aptBox[a].length; i ++){
+            aptBox[a][i].style.border= border + "px solid red"
+        }
+    }
+}
+function setRecordFlag(){
+    recordFlag = !recordFlag;
+    document.getElementById('rec-bt').style.background = (recordFlag) ? "red" : "none";
+    
+}
+function printLog(){
+    var str = "";
+    for(var i = 0; i<recordArray.length;i++){
+        var arr = recordArray[i];
+        str = str+arr[0]+"층 " + arr[1]+"호\n";
+    }
+    log.innerText=str;
+}
+function erase(){
+    for(var i = 0 ; i < aptBox.length;i++){
+        for(var a = 0; a < aptBox[i].length; a++){
+            aptBox[i][a].style.background = "none";
+        }
+    }
+}
+function recPlay(){
+    // for(i = 0 ; i < recordArray.length; i ++){
+        if(playFlag){
+            if(index >= recordArray.length){
+                playFlag = false;
+                index = 0;
+            }else{
+                var dot = recordArray[index++];
+                var x=dot[0];
+                var y=dot[1];
+                aptBox[x][y].style.background="red";
+            }
+        } 
+    // }
+}
+function setPlayFlag(){
+    playFlag=true;
+}
+window.addEventListener("load",function(){
+    init();
+});
+</script>
+<body>
+    <div class="wrapper">
+        <div id = "content"></div>
+        <div id = "log"></div>
+    </div>
+    <button id = 'rec-bt' onclick="setRecordFlag()">Rec</button>
+    <button onclick="erase()">Erase</button>
+    <button onclick="setPlayFlag()">Play</button>
+    <button onclick="setFlag()">debug</button>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#wrapper{
+    width : 1200px;
+    height: 700px;
+    background: yellow;
+    margin :auto;
+    overflow: hidden;
+}
+#side{
+    width: 200px;
+    height: 100%;
+    background: aqua;
+    float: left;
+}
+#content{
+    width: 1000px;
+    height: 100%;
+    background: azure;
+    float: left;
+}
+#side *{
+    width: 95%;
+}
+#side input[type="text"]{
+    height: 20px;
+}
+#side textarea{
+    height: 100px;
+}
+</style>
+<script>
+var content;
+var myCenter;
+var googleMap
+var lati, lngi;
+var imgSelect;
+//업체 대표이미지
+var storeList = {
+    "stores" : [
+    {
+        "name" : "프라이팬",
+        "image" : "../../images/store/fripan.jpg"
+    },
+    {
+        "name" : "이태리",
+        "image" : "../../images/store/italy.jpg"
+    },
+    {
+        "name" : "떡볶이",
+        "image" : "../../images/store/ricecake.jpg"
+    },
+    {
+        "name" : "삼곱",
+        "image" : "../../images/store/samgob.jpg"
+    },
+    {
+        "name" : "우리식당",
+        "image" : "../../images/store/woori.jpg"
+    }]
+}
+    function init(){
+    content = document.getElementById("content");
+    lati = document.getElementById("lati");
+    lngi = document.getElementById("lngi");
+    imgSelect = document.getElementById("imgSelect")
+
+    myCenter = new google.maps.LatLng(37.576006224354586, 126.97692801766098);
+    var mapProp = {
+    center: myCenter,
+    zoom:18
+    };
+    googleMap = new google.maps.Map(content,mapProp);
+    
+    var marker = new google.maps.Marker({
+        position : myCenter
+    });
+    marker.setMap(googleMap);
+    
+    createImg();
+}
+function createImg(){
+    for(var path of storeList.stores){
+        // console.log(path);
+        var op = document.createElement("option");
+        op.text = path.name
+        op.value = path.image;
+
+        imgSelect.add(op);
+
+    }
+}
+function apply(){
+    myCenter = new google.maps.LatLng(lati.value, lngi.value);
+    var marker = new google.maps.Marker({position : myCenter});
+    marker.setMap(googleMap);
+    // 중심점 이동
+    googleMap.setCenter(marker.getPosition());
+    
+    google.maps.event.addListener(marker,'click',function(){
+        var tag = "<h3>"+document.getElementById("store_name").value+"</h3>";
+        tag += "<img src = '"+imgSelect.value+"' width = '60px'>"+"<p>"
+            tag += document.getElementById("detail").value;
+            var infowindow = new google.maps.InfoWindow({
+                content:tag
+            });
+            infowindow.open(googleMap,marker);
+        })
+    }
+    
+    function preview(){
+        document.getElementById("pic").src = imgSelect.value;
+        
+    }
+    function registByJson(){
+        var vision = (document.getElementById("ch").checked) ? "block" : "none";
+        document.getElementById("dump").style.display = vision;
+    }
+
+    var markerArray = [];
+    //json을 이용한 일괄등록
+    function applyAll(){
+        var json = JSON.parse(document.getElementById("dump").value);
+        // console.log(json);
+        for(var i = 0; i<json.storeList.length; i ++){
+            var jumpo = json.storeList[i];
+            var myCenter = new google.maps.LatLng(jumpo.latLng.lat, jumpo.latLng.lng);
+            var marker = new google.maps.Marker({
+                position : myCenter,
+                index : i
+            });
+            marker.setMap(googleMap);
+            markerArray.push(marker);
+            googleMap.setCenter(marker.getPosition());
+            
+            google.maps.event.addListener(marker,'click',function(){
+                var tag = "<h3>"+json.storeList[this.index].name+"</h3>";
+                tag+="<img src=\"../../images/store/"+json.storeList[this.index].image+"\" width=\"60px\"><p>";
+                // tag += "<img src = "+json.storeList[this.index].image+"' width = '60px'>"+"<p>"
+                tag += json.storeList[this.index].review;
+                var infowindow = new google.maps.InfoWindow({
+                    content:tag
+                });
+                    infowindow.open(googleMap,markerArray[this.index]);
+                })
+        }
+    }
+</script>
+<body>
+    <div id = "wrapper">
+        <div id = "side">
+            <input type="text" placeholder="상호입력" id = "store_name">
+            <textarea id = "detail"></textarea>
+            <!--기존 옵션과 다른 옵션을 선택했을때 감지. onchange-->
+            <select id = "imgSelect" onchange="preview()">
+                <option value="">이미지 선택</option>
+            </select>
+            <img src="../../images/pika.png" width="195px" height="170px" id="pic">
+            
+            일괄등록: <input type="checkbox" onclick="registByJson()" id = "ch">
+            <textarea placeholder="json 데이터 입력" id = "dump" style="display: none"></textarea>
+            <input type="text" value="37.57283844029162" id = "lati">
+            <input type="text" value="126.97687954827418" id = "lngi">
+            <button onclick="(document.getElementById('ch').checked) ? applyAll() : apply()">적용</button>
+        </div>
+        <div id = "content"></div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2T_6R2ezf7i6YKMrjilfJhcvVJ3GhiX4&callback=init"></script>
+</body>
+</html>

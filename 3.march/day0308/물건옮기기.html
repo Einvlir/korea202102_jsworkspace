@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width : 100%;
+        height: 600px;
+        background-color: aqua;
+        position: relative;
+    }
+</style>
+<script>
+var a = 100;
+var b = 100;
+var img;
+var flag = false;
+    
+function getPos(){
+    var x = event.clientX;
+    var y = event.clientY;
+    document.getElementById("x-pos").innerText = x;
+    document.getElementById("y-pos").innerText = y;
+
+        // (flag) ? img.style.left= (x - a/2) + "px" & img.style.top = (y - b/2) + "px", img.style.border = "0px" : img.style.border ="2px solid red";
+
+
+    if(flag){// flag값에 따라 그림 위치가 변하는지 안변하는지 결정
+        img.style.left= (x - a/2) + "px"
+        img.style.top= (y - b/2) + "px"
+        img.style.border = "0px";
+
+    }else{
+        img.style.border ="2px solid red";
+    }
+}
+  
+function init(){
+    img = document.createElement("img");
+    img.src="../images/ball.png";
+    img.style.position = "absolute";
+    img.style.width= a + "px"
+    img.style.height= b + "px"
+    img.addEventListener("click", function(){
+        flag = !flag; // addEventListener로 img에 click속성을 부여하고 가짜 함수 function을 적용, img를 click할 때마다
+    });                  // flag값을 반전시킴.
+
+    var wrapper = document.getElementById("wrapper");
+    wrapper.appendChild(img);
+}
+</script>
+<body onmousemove="getPos()" onload="init()">
+    <div id = "wrapper">
+        <span id = "x-pos">0</span>px
+        <span id = "y-pos">0</span>px
+    </div>
+</body>
+</html>

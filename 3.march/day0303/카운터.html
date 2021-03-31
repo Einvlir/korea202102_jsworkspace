@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카운터</title>
+</head>
+<style>
+    input{
+        background-color: aqua;
+        color: azure;
+        height: 400px;
+        width: 600px;
+        font-size: 200px;
+        text-align: center;
+    }
+</style>
+<script>
+var n = 0;
+function setCount(){
+    n += 1;
+    document.querySelector("#txt").value = n;
+}
+function auto(){
+    setInterval("setCount()", 1000);
+}
+</script>
+<body>
+    <button onclick="auto();this.disabled=true">자동 증가</button>
+    <button onclick="setCount()">카운터 증가</button>
+    <br>
+    <input id="txt" type="text" value="0">
+</body>
+</html>

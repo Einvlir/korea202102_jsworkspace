@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        margin : 0px;
+    }
+    #hero{
+        position: absolute;
+        left: 50px;
+        top: 50px;
+        width: 100px;
+        height: 65px;   
+    }
+    #wrapper{
+        width: 100%;
+        height: 500px;
+        background: url(../images/bg.jpg);
+        background-repeat: repeat-x;
+        background-size: 100% 500px;
+        background-position: -200px 0px;
+    }
+</style>
+<script>
+
+var x = 0;//자바스크립트에서는 변수 선언시 var키워드를 사용한다.
+var herox = 50;
+var heroy = 50;
+function moveBg(){
+    x  = x -1;
+    console.log("변수 x값은 ", x);
+    // alert('불렀음?')
+    document.querySelector("#wrapper").style.backgroundPosition=x+"px 0px";
+}
+function moveLeft(){
+    herox -= 10;
+    document.querySelector("#hero").style.left = herox+"px";
+}
+function moveRight(){
+    herox += + 30;
+    document.querySelector("#hero").style.left = herox+"px";
+}
+function moveUp(){
+    heroy -= 10;
+    document.querySelector("#hero").style.top = heroy+"px";
+}
+function moveDown(){
+    heroy += 10;
+    document.querySelector("#hero").style.top = heroy+"px";
+}
+//자동으로 moveBg를 나 대신 호출해주는 기능이 있다?!
+function gameLoop(){
+    setInterval("moveBg()", 100);
+}
+</script>
+<body>
+    <div id="wrapper">
+        <img src = "../images/hero2.png" id = "hero">
+    </div>
+    <button onclick="moveBg();">배경 수동으로 움직이기</button>
+    <button onclick="gameLoop();">Auto</button>
+
+    <button onclick="moveLeft()">좌</button>
+    <button onclick="moveRight()">우</button>
+    <button onclick="moveUp()">상</button>
+    <button onclick="moveDown()">하</button>
+</body>
+</html>

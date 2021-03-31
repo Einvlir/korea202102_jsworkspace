@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var t_min;
+var t_sec;
+var sec = 0;
+var min = 0;
+var hour = 0;
+var interval;
+function getZeroString(n){
+    var result;
+    if(n < 10){
+        result = "0" + n;
+    }else{
+        result = n;
+    }
+    return result;
+}
+function init(){
+    t_hour = document.getElementById("t_hour");
+    t_min = document.getElementById("t_min");
+    t_sec = document.getElementById("t_sec");
+    t_hour.value = "0"+0;
+    t_min.value = "0"+0;
+    t_sec.value = "0"+0;
+}
+function countUp(){
+    if(min == 59){
+        if(sec == 59){
+            hour += 1;
+            t_hour.value = getZeroString(hour);
+            min=0;
+            t_min.value = getZeroString(min);
+            sec = 0 ;
+            t_sec.value = getZeroString(sec);
+          
+        }else{
+            sec += 1;
+            t_sec.value = getZeroString(sec);
+        }
+    }else{
+        if(sec == 59){
+            min+=1;
+            t_min.value = getZeroString(min);
+                  sec = 0 ;
+            t_sec.value = getZeroString(sec);
+          
+        }else{
+            sec += 1;
+            t_sec.value = getZeroString(sec);
+            
+        }
+    }
+}
+function auTo(){
+    
+    interval = setInterval("countUp()",1000);
+}
+function sTop(){
+    clearInterval(interval);
+}
+function reseT(){
+    sec = 0;
+    min = 0;
+    hour = 0;
+    init();
+}
+window.addEventListener("load", function(){
+    init();
+});
+</script>
+<style>
+#wrapper{
+    margin: auto;
+    width: 700px;
+    border: red 1px solid;
+    position: relative;
+}
+#timebox{
+    text-align: center;
+}
+#timebox input{
+    font-size: 120px;
+    width: 150px;
+    text-align: right;
+}
+#buttons{
+    text-align: center;
+}
+#buttons button{
+    background-color: white;
+    border-color: red;
+    font-size: 10px; color: red;
+}
+.hours{
+    font-size: 30px;
+}
+</style>
+<body>
+    <div id = "wrapper">
+        <div id = "timebox">
+            <input type="text" id = "t_hour">
+            <span class="hours">시</span>
+            <input type="text" id = "t_min">
+            <span class = "hours">분</span>
+            <input type="text" id = "t_sec">
+            <span class = "hours">초</span>
+         </div>
+        <p>
+        <div id = "buttons">
+            <button onclick="auTo()">START</button>
+            <button onclick="sTop()">PAUSE</button>
+            <button onclick="reseT()">RESET</button>
+        </div>  
+    </div>
+</body>
+</html>

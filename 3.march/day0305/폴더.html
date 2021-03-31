@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+var flag = true;
+var img = "A";
+function onoff(){
+
+    img = (flag) ?  "B" : "A";
+    document.querySelector("#folder").src="../images/folder/folder_" + img + ".png";
+    console.log(img,flag)
+    flag = !flag;
+}
+
+</script>
+<body>
+    
+    <img id = "folder" src="../images/folder/folder_A.png" onclick="onoff()">
+    
+</body>
+</html>

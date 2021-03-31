@@ -1,0 +1,27 @@
+<script>
+    /*자바스크립트의 내장객체중 Date객체를 사용해보자!
+    그리고 Date객체가 어떠한 api를 지원하는지에 대해서는 api문서를 참고하자*/
+    var d = new Date();
+    var day = ["일","월","화","수","목","금","토"];
+    console.log(d.getFullYear()+"년");
+    console.log(d.getMonth()+1+"월");
+    // Date객체 생성시 개발자가 생성자 메서드에 아무런 매개변수값을 전달하지 않으면
+    // 현재 날짜를 기본적으로 가져온다.
+    i = d.getDay();
+    console.log(d.getDate()+"일");
+    console.log(day[i]+ "요일");
+    console.log(day[d.getDay()]);
+
+    d.setFullYear(2015);
+    d.setMonth(2);
+    d.setDate(125);
+    console.log("날짜 객체의 정보는",d);
+    console.log(day[d.getDay()]);
+
+    d.setFullYear(2035);
+    d.setMonth(6);
+    d.setDate(1);
+    console.log(d);
+
+    console.log(new Date(1950,5,25).getDay());
+    </script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#ball{
+    position: absolute;
+    width: 100px;
+    left: 0px;
+    top: 150px;
+    transform: rotate(0 deg);
+}
+</style>
+<script>
+var x = 0;
+var step = 0;
+var swItch = false;
+var angle = 0;
+var st;
+function move(){
+    swItch = (x <= 0 || x >= 500) ? !swItch : swItch
+    angle += 30
+    step = (swItch) ? 5 : -5
+    x+=step;
+    document.getElementById("ball").style.left=x+"px"
+    document.querySelector("h1").innerText=x
+    document.getElementById("ball").style.transform="rotate(" +angle + "deg)";
+}
+function auto(){
+    st = setInterval("move()", 10);
+    
+}
+function stop(){
+    clearInterval(st);
+}
+</script>
+<body>
+    <button onclick="move()">움직이기</button>
+    <button onclick="auto()">자동</button>
+    <button onclick="stop()">멈춤</button>
+    <h1>0</h1>
+    <img id = 'ball' src="../images/ball.png">
+</body>
+</html>

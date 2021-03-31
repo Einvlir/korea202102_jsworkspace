@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body{
+    background: black;
+}
+#wrapper{
+    width: 700px;
+    height: 500px;
+    border: 5px solid yellow;
+    margin: auto;
+    text-align: center;
+}
+#wrapper h1{
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 70px;
+    display: block;
+}
+#container{
+    height: 120px;
+}
+#container p{
+    text-align: center;
+    color : darkturquoise;
+    font-weight: bold;
+    font-size: 35px;
+}
+#wrapper button{
+    padding: 10px;
+}
+</style>
+<script>
+var flag = false;
+var cnt = 0;
+function blink(){
+    var i_coin = document.getElementById("insertcoin");
+    if(cnt % 10 == 0){
+        if(flag){
+            i_coin.style.display = "block";
+            flag = !flag
+        }else{
+            i_coin.style.display = "none";
+            flag = !flag
+    
+        }
+    }
+}
+function count(){
+    cnt ++;
+    blink();
+}
+function leap(){
+    location.href = "횡슈팅게임.html"
+}
+function init(){
+    setInterval("count()",50)
+
+}
+window.addEventListener('load',function(){
+    init();
+})
+</script>
+<body>
+    <div id = "wrapper">
+        <h1>World War III</h1>
+        <div id = "container">
+            <p id = "insertcoin">INSERT COIN</p>
+        </div>
+        <button onclick="leap()">Game Start !!</button>
+    </div>
+</body>
+</html>
